@@ -1,31 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Handwriting Practice Sheet Generator</h1>
     <form id="text-form">
-        <textarea id="text-input" rows="10" cols="80" placeholder="Paste your text here..."></textarea><br>
-        <button type="submit">Generate Printable Page</button>
+      <div>
+        <label for="char-limit">Character Limit per Line:</label>
+        <input type="number" id="char-limit" value="80" />
+      </div>
+      <br />
+      <textarea
+        id="text-input"
+        rows="10"
+        cols="100"
+        placeholder="Paste your text here..."
+      ></textarea
+      ><br />
+      <button type="submit">Generate Printable Page</button>
     </form>
 
-    <script>
-        document.getElementById('text-form').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const text = document.getElementById('text-input').value;
-            const response = await fetch('/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ text })
-            });
-            const data = await response.json();
-            window.location.href = data.url;
+    <h2>Preview</h2>
+    <div id="preview-area" class="preview"></div>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .preview {
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-family: sans-serif;
+      }
+    </style>
+
+    <script type="module">
+      import smartLineBreak from "./smartLineBreak.js";
+
+      const textInput = document.getElementById("text-input");
+      const charLimitInput = document.getElementById("char-limit");
+      const previewArea = document.getElementById("preview-area");
+
+      function updatePreview() {
+        const text = textInput.value;
+        const limit = parseInt(charLimitInput.value, 10);
+        const lines = smartLineBreak(text, limit);
+        const generatedHtml = lines
+          .map((line) => `<div class="line">${line}</div>`)
+          .join("");
+        previewArea.innerHTML = generatedHtml;
+      }
+
+      textInput.addEventListener("input", updatePreview);
+      charLimitInput.addEventListener("input", updatePreview);
+
+      document
+        .getElementById("text-form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const text = textInput.value;
+          const limit = parseInt(charLimitInput.value, 10);
+          const response = await fetch("/generate", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ text, limit }),
+          });
+          const data = await response.json();
+          window.location.href = data.url;
         });
+
+      // Initial preview update
+      updatePreview();
     </script>
-</body>
+  </body>
 </html>

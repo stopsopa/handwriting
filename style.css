@@ -1,0 +1,17 @@
+body {
+  font-family: sans-serif;
+}
+.line {
+  position: relative;
+  margin-bottom: 2.1em; /* Provides space for the handwriting line */
+}
+.line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1.8em; /* Position the top of the handwriting line */
+  height: 1.3em; /* The height of the handwriting space */
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
