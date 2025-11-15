@@ -18,6 +18,10 @@
           <label for="char-limit">Character Limit per Line:</label>
           <input type="number" id="char-limit" value="68" />
         </div>
+        <div>
+          <label for="three-lines">Three Lines:</label>
+          <input type="checkbox" id="three-lines" />
+        </div>
         <br />
         <textarea
           id="text-input"
@@ -82,6 +86,7 @@
 
       const textInput = document.getElementById("text-input");
       const charLimitInput = document.getElementById("char-limit");
+      const threeLinesCheckbox = document.getElementById("three-lines");
       const previewArea = document.getElementById("preview-area");
       const printButton = document.getElementById("print-button");
 
@@ -92,7 +97,9 @@
       function updatePreview() {
         const text = textInput.value;
         const limit = parseInt(charLimitInput.value, 10);
+        const threeLines = threeLinesCheckbox.checked;
         const lines = smartLineBreak(text, limit);
+
         const generatedHtml = lines
           .map((line) => `<div class="line">${line}</div>`)
           .join("");
@@ -101,6 +108,7 @@
 
       textInput.addEventListener("input", updatePreview);
       charLimitInput.addEventListener("input", updatePreview);
+      threeLinesCheckbox.addEventListener("change", updatePreview);
 
       // Initial preview update
       updatePreview();
