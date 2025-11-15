@@ -86,3 +86,40 @@ body {
 
   cursor: pointer;
 }
+
+button {
+  background-color: #eee;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  vertical-align: middle;
+}
+
+button:hover {
+  background-color: #ddd;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#printing-tip-button {
+  animation: pulse 2s infinite;
+  display: inline-flex;
+  align-items: center;
+}
+
+#printing-tip-button svg {
+  margin-right: 0.5em;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  }
+}
