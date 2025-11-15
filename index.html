@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="preload" href="docs/writer.gif" as="image">
   </head>
   <body>
     <script
@@ -26,11 +27,37 @@
         ></textarea
         ><br />
         <button id="print-button">Print Page</button>
+        <button id="printing-tip-button">Printing tip</button>
       </form>
 
       <h2>Preview</h2>
     </div>
     <div id="preview-area" class="preview"></div>
+
+    <div id="printing-tip-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Printing tip</h2>
+        <p>
+          Browsers don’t give full control over where page breaks occur when
+          printing. Because of this, a line of text and its corresponding
+          practice space (the blank area with guiding lines) may sometimes be
+          split across two pages — which is not ideal for handwriting exercises.
+        </p>
+        <p>
+          To work around this, you can manually adjust the zoom level in the
+          print dialog (e.g., Chrome’s print preview). Changing the zoom
+          slightly can shift the content so that each text line stays together
+          with its practice space on the same page.
+        </p>
+        <p>
+          The GIF below demonstrates how to adjust the zoom and find a setting
+          that keeps the text and its corresponding practice line together.
+        </p>
+        <img src="docs/writer.gif" alt="Print page break tip" />
+      </div>
+    </div>
+
     <link rel="stylesheet" href="style.css" />
 
     <script type="module">
@@ -60,6 +87,25 @@
 
       // Initial preview update
       updatePreview();
+
+      const modal = document.getElementById("printing-tip-modal");
+      const btn = document.getElementById("printing-tip-button");
+      const span = document.getElementsByClassName("close-button")[0];
+
+      btn.onclick = function (e) {
+        e.preventDefault();
+        modal.style.display = "block";
+      };
+
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
     </script>
 
     <github-ribbon
