@@ -19,7 +19,7 @@ body {
 }
 
 @media print {
-  #hide {
+  #hide, github-ribbon {
     display: none;
   }
 }
