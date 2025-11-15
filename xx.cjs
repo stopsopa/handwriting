@@ -36,7 +36,7 @@ EEE
     server: {
       command: `
 
-      node --env-file=.env server.js
+      node --env-file=.env --watch server.js
 
       `,
       description: "launch server",

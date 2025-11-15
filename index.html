@@ -6,6 +6,26 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>Handwriting Practice Sheet Generator</h1>
+    <form id="text-form">
+        <textarea id="text-input" rows="10" cols="80" placeholder="Paste your text here..."></textarea><br>
+        <button type="submit">Generate Printable Page</button>
+    </form>
+
+    <script>
+        document.getElementById('text-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const text = document.getElementById('text-input').value;
+            const response = await fetch('/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text })
+            });
+            const data = await response.json();
+            window.location.href = data.url;
+        });
+    </script>
 </body>
 </html>
