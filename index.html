@@ -21,17 +21,13 @@
           placeholder="Paste your text here..."
         ></textarea
         ><br />
-        <!-- <button type="submit">Generate Printable Page</button> -->
-        <alert-box type="note">
-          In order to hide or show (toggle) entire ui press ESC
-        </alert-box>
+        <button id="print-button">Print Page</button>
       </form>
 
       <h2>Preview</h2>
     </div>
     <div id="preview-area" class="preview"></div>
     <link rel="stylesheet" href="style.css" />
-    <script src="https://stopsopa.github.io/alert-webcomponent/alert-box.js"></script>
 
     <script type="module">
       import smartLineBreak from "./smartLineBreak.js";
@@ -39,6 +35,11 @@
       const textInput = document.getElementById("text-input");
       const charLimitInput = document.getElementById("char-limit");
       const previewArea = document.getElementById("preview-area");
+      const printButton = document.getElementById("print-button");
+
+      printButton.addEventListener("click", () => {
+        window.print();
+      });
 
       function updatePreview() {
         const text = textInput.value;
