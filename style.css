@@ -1,9 +1,12 @@
 body {
-  font-family: sans-serif;
+  font-family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville,
+              "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond",
+              "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia,
+              serif;
 }
 .line {
   position: relative;
-  margin-bottom: 2.1em; /* Provides space for the handwriting line */
+  margin-bottom: 2.3em; /* Provides space for the handwriting line */
 }
 .line::after {
   content: "";
@@ -11,7 +14,7 @@ body {
   left: 0;
   right: 0;
   bottom: -1.8em; /* Position the top of the handwriting line */
-  height: 1.3em; /* The height of the handwriting space */
+  height: 1.1em; /* The height of the handwriting space */
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
