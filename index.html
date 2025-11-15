@@ -6,33 +6,32 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Handwriting Practice Sheet Generator</h1>
-    <form id="text-form">
-      <div>
-        <label for="char-limit">Character Limit per Line:</label>
-        <input type="number" id="char-limit" value="800" />
-      </div>
-      <br />
-      <textarea
-        id="text-input"
-        rows="10"
-        cols="120"
-        placeholder="Paste your text here..."
-      ></textarea
-      ><br />
-      <button type="submit">Generate Printable Page</button>
-    </form>
+    <div id="hide">
+      <h1>Handwriting Practice Sheet Generator</h1>
+      <form id="text-form">
+        <div>
+          <label for="char-limit">Character Limit per Line:</label>
+          <input type="number" id="char-limit" value="68" />
+        </div>
+        <br />
+        <textarea
+          id="text-input"
+          rows="10"
+          cols="120"
+          placeholder="Paste your text here..."
+        ></textarea
+        ><br />
+        <!-- <button type="submit">Generate Printable Page</button> -->
+        <alert-box type="note">
+          In order to hide or show (toggle) entire ui press ESC
+        </alert-box>
+      </form>
 
-    <h2>Preview</h2>
+      <h2>Preview</h2>
+    </div>
     <div id="preview-area" class="preview"></div>
     <link rel="stylesheet" href="style.css" />
-    <style>
-      .preview {
-        border: 1px solid #ccc;
-        padding: 10px;
-        font-family: sans-serif;
-      }
-    </style>
+    <script src="https://stopsopa.github.io/alert-webcomponent/alert-box.js"></script>
 
     <script type="module">
       import smartLineBreak from "./smartLineBreak.js";
@@ -53,23 +52,6 @@
 
       textInput.addEventListener("input", updatePreview);
       charLimitInput.addEventListener("input", updatePreview);
-
-      document
-        .getElementById("text-form")
-        .addEventListener("submit", async (event) => {
-          event.preventDefault();
-          const text = textInput.value;
-          const limit = parseInt(charLimitInput.value, 10);
-          const response = await fetch("/generate", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ text, limit }),
-          });
-          const data = await response.json();
-          window.location.href = data.url;
-        });
 
       // Initial preview update
       updatePreview();
