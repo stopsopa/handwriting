@@ -7,7 +7,28 @@ body {
   margin-bottom: 2.3em; /* Provides space for the handwriting line */
   letter-spacing: 2.6px;
 }
-.line::after {
+#preview-area.line2_3,
+#preview-area.line1_3 {
+  .line {
+    margin-bottom: 2.5em;
+  }
+  .line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1.1em; /* The height of the handwriting space */
+    /* border-top: 1px solid #ce0707; */
+    border-bottom: 1px solid #ccc;
+  }
+}
+#preview-area.line2_3,
+#preview-area.line1_3 {
+  .line::after {
+    bottom: -2em;
+  }
+}
+.line::before {
   content: "";
   position: absolute;
   left: 0;
@@ -16,6 +37,19 @@ body {
   height: 1.1em; /* The height of the handwriting space */
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
+}
+#preview-area.line2_3,
+#preview-area.line1_3 {
+  .line::before {
+    height: 0.5em;
+    bottom: -1.2em;
+  }
+}
+#preview-area.line1_3 {
+  .line::before {
+    height: 0.5em;
+    bottom: -1.4em;
+  }
 }
 
 @media print {
@@ -122,4 +156,8 @@ button:hover {
   100% {
     box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
   }
+}
+
+label {
+  margin-right: 20px;
 }
