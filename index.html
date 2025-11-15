@@ -25,6 +25,7 @@
         <alert-box type="note">
           In order to hide or show (toggle) entire ui press ESC
         </alert-box>
+        <button id="toggle-hide-button">Toggle UI</button>
       </form>
 
       <h2>Preview</h2>
@@ -55,6 +56,29 @@
 
       // Initial preview update
       updatePreview();
+      
+      const hideElement = document.getElementById('hide');
+      const toggleButton = document.getElementById('toggle-hide-button');
+
+      function toggleHideElement() {
+        if (hideElement.style.display === 'none') {
+          hideElement.style.display = 'block';
+        } else {
+          hideElement.style.display = 'none';
+        }
+      }
+
+      // Toggle on button click
+      if (toggleButton) {
+        toggleButton.addEventListener('click', toggleHideElement);
+      }
+
+      // Toggle on ESC key press
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          toggleHideElement();
+        }
+      });
     </script>
   </body>
 </html>
