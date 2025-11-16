@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="preload" href="docs/writer.gif" as="image" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <script
@@ -83,16 +84,22 @@ Then He spoke a parable to them, that men always ought to pray and not lose hear
       </div>
     </div>
 
-    <link rel="stylesheet" href="style.css" />
+    <github-ribbon
+      link="https://github.com/stopsopa/handwriting"
+      type="right"
+      color="#679d2c"
+      >Fork me on GitHub</github-ribbon
+    >
 
     <script type="module">
       import smartLineBreak from "./smartLineBreak.js";
 
       const textInput = document.getElementById("text-input");
       const charLimitInput = document.getElementById("char-limit");
-      // const threeLinesCheckbox = document.getElementById("three-lines");
 
-      const linesCheckboxes = document.querySelector('[name="lines"]');
+      const linesSelector = 'input[type="radio"][name="lines"]';
+      const linesElementsList = [...document.querySelectorAll(linesSelector)];
+
       const previewArea = document.getElementById("preview-area");
       const printButton = document.getElementById("print-button");
 
@@ -113,30 +120,27 @@ Then He spoke a parable to them, that men always ought to pray and not lose hear
         previewArea.innerHTML = "";
 
         {
-          // radio
-          const threeLines = document.querySelector(
-            `input[type="radio"][name="lines"]:checked`
-          ).value;
-
-          [
-            ...document.querySelectorAll('input[type="radio"][name="lines"]'),
-          ].forEach((e) => {
+          linesElementsList.forEach((e) => {
             previewArea.classList.remove(e.value);
           });
+
+          // class radio driven
+          const threeLines = document.querySelector(
+            `${linesSelector}:checked`
+          ).value;
 
           previewArea.classList.add(threeLines);
         }
 
         for (let line of lines) {
           const div = document.createElement("div");
+
           div.innerText = line;
+
           div.classList.add("line");
+
           previewArea.appendChild(div);
         }
-        const generatedHtml = lines
-          .map((line) => `<div class="line">${line}</div>`)
-          .join("");
-        previewArea.innerHTML = generatedHtml;
       }
 
       textInput.addEventListener("input", updatePreview);
@@ -145,12 +149,13 @@ Then He spoke a parable to them, that men always ought to pray and not lose hear
       document.addEventListener("click", (e) => {
         const target = e.target;
 
-        var match = target.matches(`input[type="radio"][name="lines"]`);
+        var match = target.matches(linesSelector);
 
         if (match) {
           updatePreview();
         }
       });
+
       // Initial preview update
       updatePreview();
 
@@ -161,28 +166,20 @@ Then He spoke a parable to them, that men always ought to pray and not lose hear
         const btn = document.getElementById("printing-tip-button");
         const span = document.getElementsByClassName("close-button")[0];
 
-        btn.onclick = function (e) {
-          e.preventDefault();
+        btn.addEventListener("click", () => {
           modal.style.display = "block";
-        };
+        });
 
-        span.onclick = function () {
+        span.addEventListener("click", () => {
           modal.style.display = "none";
-        };
+        });
 
-        window.onclick = function (event) {
+        window.addEventListener("click", (event) => {
           if (event.target == modal) {
             modal.style.display = "none";
           }
-        };
+        });
       }
     </script>
-
-    <github-ribbon
-      link="https://github.com/stopsopa/handwriting"
-      type="right"
-      color="#679d2c"
-      >Fork me on GitHub</github-ribbon
-    >
   </body>
 </html>
