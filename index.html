@@ -154,24 +154,28 @@ Then He spoke a parable to them, that men always ought to pray and not lose hear
       // Initial preview update
       updatePreview();
 
-      const modal = document.getElementById("printing-tip-modal");
-      const btn = document.getElementById("printing-tip-button");
-      const span = document.getElementsByClassName("close-button")[0];
+      {
+        // modal
 
-      btn.onclick = function (e) {
-        e.preventDefault();
-        modal.style.display = "block";
-      };
+        const modal = document.getElementById("printing-tip-modal");
+        const btn = document.getElementById("printing-tip-button");
+        const span = document.getElementsByClassName("close-button")[0];
 
-      span.onclick = function () {
-        modal.style.display = "none";
-      };
+        btn.onclick = function (e) {
+          e.preventDefault();
+          modal.style.display = "block";
+        };
 
-      window.onclick = function (event) {
-        if (event.target == modal) {
+        span.onclick = function () {
           modal.style.display = "none";
-        }
-      };
+        };
+
+        window.onclick = function (event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        };
+      }
     </script>
 
     <github-ribbon
