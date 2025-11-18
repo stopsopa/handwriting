@@ -1,0 +1,88 @@
+.cookie_consent .cookie_modal {
+  display: none;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  background: white;
+  padding: 32px;
+  border-radius: 20px;
+  width: 420px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.cookie_consent h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.cookie_consent p {
+  color: #555;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.cookie_consent .toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.cookie_consent .switch {
+  width: 46px;
+  height: 24px;
+  background: #ccc;
+  border-radius: 20px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.cookie_consent .switch.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cookie_consent .switch.active {
+  background: #1f6bff;
+}
+
+.cookie_consent .knob {
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.3s;
+}
+
+.cookie_consent .switch.active .knob {
+  transform: translateX(22px);
+}
+
+.cookie_consent .buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.cookie_consent .btn {
+  flex: 1;
+  padding: 14px 0;
+  border-radius: 10px;
+  /* border: none; */
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.cookie_consent .btn.reject {
+  background: #f0f0f0;
+  color: #555;
+}
+
+.cookie_consent .btn.accept {
+  background: #1f6bff;
+  color: white;
+}

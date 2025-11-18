@@ -9,8 +9,44 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
+        console.log("gtag:", JSON.stringify([...arguments], null, 4));
         dataLayer.push(arguments);
       }
+
+      {
+        const lc = localStorage?.getItem("consentMode") || null;
+
+        let state = {
+          ad_storage: "denied",
+          analytics_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+        };
+
+        if (lc !== null) {
+          const prev = JSON.parse(lc);
+
+          function isValidConsent(obj) {
+            if (typeof obj !== "object" || obj === null) return false;
+
+            for (const key of Object.keys(state)) {
+              if (!(key in obj)) return false;
+
+              const value = obj[key];
+              if (value !== "denied" && value !== "granted") return false;
+            }
+
+            return true;
+          }
+
+          if (isValidConsent(prev)) {
+            state = prev;
+          }
+        }
+
+        gtag("consent", "default", state);
+      }
+
       gtag("js", new Date());
 
       gtag("config", "G-MTGND1V0RN");
@@ -20,6 +56,7 @@
     <title>Document</title>
     <link rel="preload" href="docs/writer.gif" as="image" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="consent/consent.css" />
   </head>
   <body>
     <script
@@ -195,5 +232,93 @@ Then He spoke a parable to them, that men always ought to pray and not lose hear
         });
       }
     </script>
+
+    <div class="cookie_consent">
+      <div class="cookie_modal">
+        <h2>Cookie Preferences</h2>
+        <p>
+          We use cookies to enhance your browsing experience, serve personalized
+          content, and analyze our traffic. Please select your preferences
+          below.
+        </p>
+
+        <!-- <div class="toggle">
+          <div class="switch active disabled"><div class="knob"></div></div>
+          <span>Essential Cookies (Required)</span>
+        </div> -->
+
+        <div class="toggle" onclick="toggle(this)">
+          <div class="switch active" id="cookie_analytics">
+            <div class="knob"></div>
+          </div>
+          <span>Analytics Cookies</span>
+        </div>
+
+        <!-- <div class="toggle" onclick="toggle(this)">
+          <div class="switch"><div class="knob"></div></div>
+          <span>Marketing Cookies</span>
+        </div> -->
+
+        <div class="buttons">
+          <button class="btn reject">Reject All</button>
+          <button class="btn accept">Accept All</button>
+        </div>
+      </div>
+
+      <script>
+        // mainly read about how to handle cookie consent banner here: https://developers.google.com/tag-platform/security/guides/consent-debugging#gtag.js
+        function toggle(el) {
+          const sw = el.querySelector(".switch");
+          if (!sw.classList.contains("disabled")) {
+            sw.classList.toggle("active");
+          }
+        }
+
+        const lc = localStorage.getItem("consentMode");
+
+        if (lc === null) {
+          const cookie_modal = document.querySelector(
+            ".cookie_consent .cookie_modal"
+          );
+
+          cookie_modal.style.display = "block";
+
+          const event = (e) => {
+            const el = e.target;
+
+            if (
+              el.matches(".cookie_consent .reject, .cookie_consent .accept")
+            ) {
+              const accept = el.classList.contains("accept");
+
+              const analytics = Boolean(
+                document
+                  .querySelector("#cookie_analytics")
+                  ?.classList?.contains("active")
+              );
+
+              const consent = {
+                ad_storage: "denied",
+                analytics_storage: "denied",
+                ad_user_data: "denied",
+                ad_personalization: "denied",
+              };
+
+              if (accept && analytics) {
+                consent.analytics_storage = "granted";
+                gtag("consent", "default", consent);
+              }
+
+              localStorage.setItem("consentMode", JSON.stringify(consent));
+              cookie_modal.parentNode.removeChild(cookie_modal);
+
+              document.removeEventListener("click", event);
+            }
+          };
+
+          document.addEventListener("click", event);
+        }
+      </script>
+    </div>
   </body>
 </html>

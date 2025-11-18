@@ -13,3 +13,7 @@ To work around this, you can manually adjust the zoom level in the print dialog 
 The GIF below demonstrates how to adjust the zoom and find a setting that keeps the text and its corresponding practice line together.
 
 ![Print page break tip](docs/writer.gif)
+
+# Dev notes
+
+See how Google Analytics and cookie consent modal is integrated: 
