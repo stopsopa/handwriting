@@ -16,4 +16,4 @@ The GIF below demonstrates how to adjust the zoom and find a setting that keeps 
 
 # Dev notes
 
-See how Google Analytics and cookie consent modal is integrated: 
+See how Google Analytics and cookie consent modal is integrated: https://github.com/stopsopa/handwriting/commit/5094d9b473b0951bfddabf96fe97336d418f901b
