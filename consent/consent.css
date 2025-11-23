@@ -86,3 +86,11 @@
   background: #1f6bff;
   color: white;
 }
+
+
+
+@media print {
+  .cookie_consent {
+    display: none;
+  }
+}
