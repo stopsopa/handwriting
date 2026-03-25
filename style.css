@@ -60,7 +60,7 @@ body {
   }
 }
 
-#printing-tip-button {
+#printing-tip-button, #reset-button {
   margin-left: 1em;
 }
 
@@ -121,7 +121,7 @@ body {
   cursor: pointer;
 }
 
-button {
+button, a.button {
   background-color: #eee;
   border: 1px solid #ddd;
   border-radius: 3px;
@@ -129,9 +129,14 @@ button {
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
   vertical-align: middle;
+  text-decoration: none;
+  color: black;
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: 13.3333px;
 }
 
-button:hover {
+button:hover, a.button:hover {
   background-color: #ddd;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
