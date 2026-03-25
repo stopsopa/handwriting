@@ -155,8 +155,33 @@ Then He spoke a parable to them, that men always ought to pray and not lose hear
       const previewArea = document.getElementById("preview-area");
       const printButton = document.getElementById("print-button");
 
-      // to compress LZString.compressToEncodedURIComponent(string)
-      // do decompress use: LZString.decompressFromEncodedURIComponent(string)
+      function syncToUrl() {
+        const url = new URL(window.location);
+        url.searchParams.set("v", LZString.compressToEncodedURIComponent(textInput.value));
+        url.searchParams.set("c", charLimitInput.value);
+        url.searchParams.set("l", document.querySelector(`${linesSelector}:checked`).value);
+        window.history.replaceState({}, "", url);
+      }
+
+      function syncFromUrl() {
+        const url = new URL(window.location);
+        if (url.searchParams.has("v")) {
+          const v = LZString.decompressFromEncodedURIComponent(url.searchParams.get("v"));
+          if (v !== null) {
+            textInput.value = v;
+          }
+        }
+        if (url.searchParams.has("c")) {
+          charLimitInput.value = url.searchParams.get("c");
+        }
+        if (url.searchParams.has("l")) {
+          const l = url.searchParams.get("l");
+          const radio = document.querySelector(`${linesSelector}[value="${l}"]`);
+          if (radio) {
+            radio.checked = true;
+          }
+        }
+      }
 
       printButton.addEventListener("click", () => {
         window.print();
@@ -166,6 +191,8 @@ Then He spoke a parable to them, that men always ought to pray and not lose hear
       function updatePreview() {
         i += 1;
         console.log("render", i);
+
+        syncToUrl();
 
         const text = textInput.value;
         const limit = parseInt(charLimitInput.value, 10);
@@ -212,6 +239,7 @@ Then He spoke a parable to them, that men always ought to pray and not lose hear
       });
 
       // Initial preview update
+      syncFromUrl();
       updatePreview();
 
       {
